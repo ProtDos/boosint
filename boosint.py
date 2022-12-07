@@ -9,6 +9,7 @@ import json
 import argparse
 import threading
 import time
+import pathlib
 
 working = []
 done = False
@@ -51,16 +52,14 @@ if __name__ == "__main__":
         print("[i] Started using maigret. Please stand by.")
         if os.path.isdir("reports"):
             shutil.rmtree("reports")
+        input("<")
         try:
-            os.system(f"maigret -J simple --no-progressbar --no-color {username} > l.txt")
+            cur_ = pathlib.Path(__file__).parent.resolve()
+            os.system(f"cd {cur_} && maigret -J simple {username}")
         except:
             pass
         os.system("cls")
         os.system("clear")
-        try:
-            os.remove("l.txt")
-        except:
-            print("[-] Looks like maigret has some problems... Continuing.")
         print("[+] Done with maigret.")
         ############################### GitRecon ###############################
         print("[i] Starting GitRecon.")
