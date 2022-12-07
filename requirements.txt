@@ -1,0 +1,5 @@
+maigret
+requests
+selenium
+undetected-chromedriver
+scrape-search-engine
