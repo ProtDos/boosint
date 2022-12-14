@@ -2,7 +2,7 @@ import requests
 
 github_token = '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'
 github_headers = {
-    'Authorization': 'token ' + github_token
+    'Authorization': f'token {github_token}'
 }
 
 emails_list = {}
