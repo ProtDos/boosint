@@ -46,7 +46,7 @@ def scratch(username):
                 break
             i += 1
 
-    except:
+    except Exception:
         print("User not found")
     driver.quit()
 
