@@ -34,7 +34,7 @@ def scratch(username):
             try:
                 friend = driver.find_element(By.XPATH, f'/html/body/div[1]/div[4]/div[2]/div[2]/div/ul/li[{i}]')
                 friends.append(friend)
-            except:
+            except Exception:
                 break
             i += 1
 
