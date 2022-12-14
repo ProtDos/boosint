@@ -25,7 +25,7 @@ def gravatar(username):
             location = r["currentLocation"]
         try:
             accounts = [item["domain"] for item in r["accounts"]]
-        except:
+        except Exception:
             pass
     return {
         "name": name,
