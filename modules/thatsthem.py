@@ -13,12 +13,7 @@ def thatsthem(username, method="email"):
 
     try:
         if method == "name":
-            driver.get("https://thatsthem.com/people-search")
-            time.sleep(5)
-            driver.find_element(By.XPATH, '/html/body/div/main/section[1]/div/div/div/form/div/input[1]').send_keys(username)
-            time.sleep(0.5)
-            driver.find_element(By.XPATH, '/html/body/div/main/section[1]/div/div/div/form/div/button').click()
-            time.sleep(5)
+            thatsthem_user_search(driver, "https://thatsthem.com/people-search", '/html/body/div/main/section[1]/div/div/div/form/div/input[1]', username)
 
             for i in range(20):
                 try:
@@ -39,11 +34,9 @@ def thatsthem(username, method="email"):
                     age = None
                 try:
                     s = driver.find_element(By.XPATH, f'/html/body/div/main/div/div[2]/div[2]/div[2]/div[{i}]/div/div[2]/div[3]').get_attribute("innerHTML")
-                    phones = []
                     a = s.split('class="web">\n')
-                    for item in a:
-                        if "</a>" in item:
-                            phones.append(item.replace("</a>", "").split("\n")[0])
+                    phones = [item.replace("</a>", "").split("\n")[0] for item in a if "</a>" in item]
+
                 except:
                     phones = None
                 try:
@@ -68,12 +61,7 @@ def thatsthem(username, method="email"):
                 if js["name"] != None:
                     result.append(js)
         elif method == "email":
-            driver.get(f"https://thatsthem.com/reverse-email-lookup")
-            time.sleep(5)
-            driver.find_element(By.XPATH, '/html/body/div/main/section[1]/div/div/div/form/div/input').send_keys(username)
-            time.sleep(0.5)
-            driver.find_element(By.XPATH, '/html/body/div/main/section[1]/div/div/div/form/div/button').click()
-            time.sleep(5)
+            thatsthem_user_search(driver, "https://thatsthem.com/reverse-email-lookup", '/html/body/div/main/section[1]/div/div/div/form/div/input', username)
 
             for i in range(20):
                 try:
@@ -101,11 +89,9 @@ def thatsthem(username, method="email"):
                     s = driver.find_element(By.XPATH,
                                             f'/html/body/div/main/div/div[2]/div[2]/div[1]/div[{i}]/div/div[2]/div[2]').get_attribute(
                         "innerHTML")
-                    phones = []
                     a = s.split('class="web">\n')
-                    for item in a:
-                        if "</a>" in item:
-                            phones.append(item.replace("</a>", "").split("\n")[0])
+                    phones = [item.replace("</a>", "").split("\n")[0] for item in a if "</a>" in item]
+
                 except:
                     phones = None
                 try:
@@ -127,12 +113,7 @@ def thatsthem(username, method="email"):
                 if js["name"] != None:
                     result.append(js)
         elif method == "phone":
-            driver.get("https://thatsthem.com/reverse-phone-lookup")
-            time.sleep(5)
-            driver.find_element(By.XPATH, '/html/body/div/main/section[1]/div/div/div/form/div/input').send_keys(username)
-            time.sleep(0.5)
-            driver.find_element(By.XPATH, '/html/body/div/main/section[1]/div/div/div/form/div/button').click()
-            time.sleep(5)
+            thatsthem_user_search(driver, "https://thatsthem.com/reverse-phone-lookup", '/html/body/div/main/section[1]/div/div/div/form/div/input', username)
 
             for i in range(20):
                 try:
@@ -160,11 +141,9 @@ def thatsthem(username, method="email"):
                     s = driver.find_element(By.XPATH,
                                             f'/html/body/div/main/div/div[2]/div[2]/div[2]/div[{i}]/div/div[2]/div[2]').get_attribute(
                         "innerHTML")
-                    phones = []
                     a = s.split('class="web">\n')
-                    for item in a:
-                        if "</a>" in item:
-                            phones.append(item.replace("</a>", "").split("\n")[0])
+                    phones = [item.replace("</a>", "").split("\n")[0] for item in a if "</a>" in item]
+
                 except:
                     phones = None
                 try:
@@ -196,7 +175,7 @@ def thatsthem(username, method="email"):
             }
 
         return result
-    except:
+    except Exception:
         return {
             "name": "",
             "location": "",
@@ -206,3 +185,20 @@ def thatsthem(username, method="email"):
             "emails": "",
             "ips": ""
         }
+
+
+def thatsthem_user_search(driver, xpath1, xpath2, username):
+    """Function that: searches for users matching username
+
+    Args:
+        driver (driver): the driver that is used to search
+        xpath1 (str): xpath of the first result
+        xpath2 (str): xpath of the second result
+        username (str): username of the user
+    """    
+    driver.get(xpath1)
+    time.sleep(5)
+    driver.find_element(By.XPATH, xpath2).send_keys(username)
+    time.sleep(0.5)
+    driver.find_element(By.XPATH, '/html/body/div/main/section[1]/div/div/div/form/div/button').click()
+    time.sleep(5)
