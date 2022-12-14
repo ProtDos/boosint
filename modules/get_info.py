@@ -73,27 +73,37 @@ def yahoo(username):
 
     driver.get("https://login.yahoo.com/")
 
-    try:
-        driver.find_element(By.XPATH, '/html/body/div[1]/div[2]/div[1]/div[2]/div[2]/form/div[1]/div[3]/input').send_keys(username)
-
-        time.sleep(0.5)
-
-        driver.find_element(By.XPATH, '/html/body/div[1]/div[2]/div[1]/div[2]/div[2]/form/div[2]').click()
-
-        time.sleep(0.5)
-
-        driver.find_element(By.XPATH, '/html/body/div[1]/div[2]/div[1]/div[2]/div[2]/form/div[4]/input').click()
-
-        time.sleep(5)
-
-        phone = driver.find_element(By.XPATH, '/html/body/div[1]/div[2]/div[1]/div[2]/div[2]/form/ul/li[2]').get_attribute("data-display")
-
-    except Exception:
-        pass
+    with contextlib.suppress(Exception):
+        phone = yahoo_phone(driver, username)
     driver.quit()
     return {
         "phone": phone
     }
+
+
+def yahoo_phone(driver, username):
+    """yahoo_phone: it returns the phone number of the user
+
+    Args:
+        driver (driver): driver of the browser
+        username (str): username of the user
+
+    Returns:
+        str: phone number of the user
+    """    
+    driver.find_element(By.XPATH, '/html/body/div[1]/div[2]/div[1]/div[2]/div[2]/form/div[1]/div[3]/input').send_keys(username)
+
+    time.sleep(0.5)
+
+    driver.find_element(By.XPATH, '/html/body/div[1]/div[2]/div[1]/div[2]/div[2]/form/div[2]').click()
+
+    time.sleep(0.5)
+
+    driver.find_element(By.XPATH, '/html/body/div[1]/div[2]/div[1]/div[2]/div[2]/form/div[4]/input').click()
+
+    time.sleep(5)
+
+    return driver.find_element(By.XPATH, '/html/body/div[1]/div[2]/div[1]/div[2]/div[2]/form/ul/li[2]').get_attribute("data-display")
 
 
 def hotmail(username):
