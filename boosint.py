@@ -52,11 +52,9 @@ if __name__ == "__main__":
         if os.path.isdir("reports"):
             shutil.rmtree("reports")
         input("<")
-        try:
+        with contextlib.suppress(Exception):
             cur_ = pathlib.Path(__file__).parent.resolve()
             os.system(f"cd {cur_} && maigret -J simple {username}")
-        except Exception:
-            pass
         os.system("cls")
         os.system("clear")
         print("[+] Done with maigret.")
@@ -77,11 +75,8 @@ if __name__ == "__main__":
         out = asyncio.run(findUsername(username, "CLI"))
 
 
-        valid = []
+        valid = [site for site in out["sites"] if site["status"] == "FOUND"]
 
-        for site in out["sites"]:
-            if site["status"] == "FOUND":
-                valid.append(site)
         print("[+] Done.")
         ############################### OtherOSINT ###############################
         ## Find possible websites
@@ -116,10 +111,8 @@ if __name__ == "__main__":
         maigret_out = [f for f in listdir("reports") if isfile(join("reports", f))]
         with open(f"reports\\report_{username}_simple.json", "r") as file:
             maigret_json = json.load(file)
-        alibis = []
-        for item in maigret_out:
-            if str(item) != f"reports\\report_{username}_simple.json":
-                alibis.append(item.split("report_")[1].split("_simple.json")[0])
+        alibis = [item.split("report_")[1].split("_simple.json")[0] for item in maigret_out if str(item) != f"reports\\report_{username}_simple.json"]
+
         print("[+] Alibis")
 
         ############################### ThatsThem ###############################
@@ -146,30 +139,12 @@ if __name__ == "__main__":
         thats_them_email2 = thatsthem([gitrec["leaked_emails"] if gitrec["leaked_emails"] != None else ""], method="email")
 
         print("[i] Waiting for websites.")
-        while True:
-            if done:
-                break
+        while not done:
             time.sleep(10)
         print("[+] Done")
 
-        final_result = {
-            "Main": [
-                {
-                    "username": username,
-                    "name": [[gitrec["name"] if gitrec["name"] != None else ""], [git["name"] if git["name"] != None else ""], [grav["name"] if grav["name"] != None else ""], [pin["name"] if pin["name"] != None else ""], [twi["name"] if twi["name"] != None else ""]],
-                    "emails": [[hot["email"] if hot["email"] != None else ""], [gitrec["leaked_emails"] if gitrec["leaked_emails"] != None else ""]],
-                    "abouts": [[gitrec["bio"] if gitrec["bio"] != None else ""], [git["about"] if git["about"] != None else ""], [grav["about"] if grav["about"] != None else ""], [scr["about2"] if scr["about2"] != None else ""], [pin["about"] if pin["about"] != None else ""], [red["about"] if red["about"] != None else ""], [scr["about"] if scr["about"] != None else ""], [tik["about"] if scr["about"] != None else ""], [twi["about"] if twi["about"] != None else ""]],
-                    "location": [[gitrec["location"] if gitrec["location"] != None else ""], [grav["location"] if grav["location"] != None else ""]],
-                    "birthday": twi["birthday"],
-                    "phone": [[gma["phone"] if gma["phone"] != None else ""], [yah["phone"] if yah["phone"] != None else ""]],
-                    "device": gma["model"],
-                    "websites": [[twi["link"] if twi["link"] != None else ""], [tik["link"] if tik["link"] != None else ""], [git["link"] if git["link"] != None else ""]],
-                    "socials": [[l["app"] for l in valid], [social for social in maigret_json]],
-                    "alibis": [ali for ali in alibis],
-                    "other_possible_websites": [site for site in working]
-                }
-            ]
-        }
+        final_result = {"Main": [{"username": username, "name": [[gitrec["name"] if gitrec["name"] != None else ""], [git["name"] if git["name"] != None else ""], [grav["name"] if grav["name"] != None else ""], [pin["name"] if pin["name"] != None else ""], [twi["name"] if twi["name"] != None else ""]], "emails": [[hot["email"] if hot["email"] != None else ""], [gitrec["leaked_emails"] if gitrec["leaked_emails"] != None else ""]], "abouts": [[gitrec["bio"] if gitrec["bio"] != None else ""], [git["about"] if git["about"] != None else ""], [grav["about"] if grav["about"] != None else ""], [scr["about2"] if scr["about2"] != None else ""], [pin["about"] if pin["about"] != None else ""], [red["about"] if red["about"] != None else ""], [scr["about"] if scr["about"] != None else ""], [tik["about"] if scr["about"] != None else ""], [twi["about"] if twi["about"] != None else ""]], "location": [[gitrec["location"] if gitrec["location"] != None else ""], [grav["location"] if grav["location"] != None else ""]], "birthday": twi["birthday"], "phone": [[gma["phone"] if gma["phone"] != None else ""], [yah["phone"] if yah["phone"] != None else ""]], "device": gma["model"], "websites": [[twi["link"] if twi["link"] != None else ""], [tik["link"] if tik["link"] != None else ""], [git["link"] if git["link"] != None else ""]], "socials": [[l["app"] for l in valid], list(maigret_json)], "alibis": list(alibis), "other_possible_websites": list(working)}]}
+
 
         ThatsThemResult = {
             "ThatsThem": [
