@@ -55,7 +55,7 @@ if __name__ == "__main__":
         try:
             cur_ = pathlib.Path(__file__).parent.resolve()
             os.system(f"cd {cur_} && maigret -J simple {username}")
-        except:
+        except Exception:
             pass
         os.system("cls")
         os.system("clear")
