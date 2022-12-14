@@ -64,7 +64,7 @@ def extract_events_leaks(user):
             for info in data['payload']['commits']:
                 info = {info['author']['email']: info['author']['name']}
                 emails_list.update(info)
-        except:
+        except Exception:
             pass
 
 
