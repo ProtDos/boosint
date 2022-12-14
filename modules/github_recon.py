@@ -49,9 +49,11 @@ def extract_orgs(user):
 
 def obtain_events(user):
     if github_token:
-        response = requests.get('https://api.github.com/users/' + user + '/events?per_page=100', headers=github_headers)
+        response = requests.get(f'https://api.github.com/users/{user}/events?per_page=100', headers=github_headers)
+
     else:
-        response = requests.get('https://api.github.com/users/' + user + '/events?per_page=100')
+        response = requests.get(f'https://api.github.com/users/{user}/events?per_page=100')
+
     return response.json()
 
 
