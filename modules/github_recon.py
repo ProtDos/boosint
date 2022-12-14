@@ -12,9 +12,10 @@ orgs_list = []
 
 def obtain_profile_info(user):
     if github_token:
-        response = requests.get('https://api.github.com/users/' + user, headers=github_headers)
+        response = requests.get(f'https://api.github.com/users/{user}', headers=github_headers)
+
     else:
-        response = requests.get('https://api.github.com/users/' + user)
+        response = requests.get(f'https://api.github.com/users/{user}')
     if response.status_code == 404:
         print()
         print(' [!] Username not found')
