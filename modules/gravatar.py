@@ -1,3 +1,4 @@
+import contextlib
 import requests
 
 
@@ -9,7 +10,7 @@ def gravatar(username):
     about = None
     location = None
     accounts = None
-    try:
+    with contextlib.suppress(Exception):
         res = requests.get(f"https://en.gravatar.com/{username}.json").json()
         r = res["entry"][0]
         try:
@@ -17,9 +18,7 @@ def gravatar(username):
         except:
             pass
         try:
-            photos = []
-            for item in r["photos"]:
-                photos.append(item["value"])
+            photos = [item["value"] for item in r["photos"]]
         except:
             pass
         try:
@@ -35,14 +34,9 @@ def gravatar(username):
         except:
             pass
         try:
-            accounts = []
-            for item in r["accounts"]:
-                accounts.append(item["domain"])
+            accounts = [item["domain"] for item in r["accounts"]]
         except:
             pass
-    except Exception:
-        pass
-
     return {
         "name": name,
         "about": about,
