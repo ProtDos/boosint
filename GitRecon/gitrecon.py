@@ -33,9 +33,7 @@ def create_github_json_output(user_data, keys):
     json_output['following'] = user_data['following']
     json_output['created_at'] = user_data['created_at']
     json_output['updated_at'] = user_data['updated_at']
-    json_output['leaked_emails'] = []
-    for email in github_recon.valid_emails:
-        json_output['leaked_emails'].append(email)
+    json_output['leaked_emails'] = list(github_recon.valid_emails)
     json_output['keys'] = []
     if keys:
         for key in keys:
