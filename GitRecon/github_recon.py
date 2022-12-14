@@ -25,9 +25,10 @@ def obtain_profile_info(user):
 
 def obtain_orgs(user):
     if github_token:
-        response = requests.get('https://api.github.com/users/' + user + '/orgs', headers=github_headers)
+        response = requests.get(f'https://api.github.com/users/{user}/orgs', headers=github_headers)
+
     else:
-        response = requests.get('https://api.github.com/users/' + user + '/orgs')
+        response = requests.get(f'https://api.github.com/users/{user}/orgs')
     return response.json()
 
 
