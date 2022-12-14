@@ -19,7 +19,7 @@ def gravatar(username):
             photos = [item["value"] for item in r["photos"]]
         try:
             name = r["name"]["formatted"]
-        except:
+        except Exception:
             pass
         try:
             about = r["aboutMe"]
