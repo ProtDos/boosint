@@ -13,7 +13,7 @@ def search_phone(number):
 
         return results
 
-    except:
+    except Exception:
         return {
             "status": "error"
         }
