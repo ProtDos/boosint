@@ -1,5 +1,6 @@
 import argparse
 import asyncio
+import contextlib
 import json
 import os
 import random
@@ -59,7 +60,7 @@ async def makeRequest(session, u, username, interfaceType):
     }
     metadata = []
     if 'headers' in u:
-        headers.update(eval(u['headers']))
+        headers |= eval(u['headers'])
     if 'json' in u:
         jsonBody = u['json'].format(username=username)
         jsonBody = json.loads(jsonBody)
@@ -71,29 +72,19 @@ async def makeRequest(session, u, username, interfaceType):
             else:
                 soup = BeautifulSoup(responseContent, 'html.parser')
 
-            if eval(u["valid"]):
-                #print(f'{Fore.LIGHTGREEN_EX}[+]\033[0m - #{u["id"]} {Fore.BLUE}{u["app"]}\033[0m {Fore.LIGHTGREEN_EX}account found\033[0m - {Fore.YELLOW}{url}\033[0m [{response.status} {response.reason}]\033[0m')
-                if 'metadata' in u:
-                    metadata = []
-                    for d in u["metadata"]:
-                        try:
-                            value = eval(d['value']).strip('\t\r\n')
-                            #print(f"   |--{d['key']}: {value}")
-                            metadata.append({"type": d["type"], "key": d['key'], "value": value})
-                        except Exception as e:
-                            pass
-                return ({"id": u["id"], "app": u['app'], "url": url, "response-status": f"{response.status} {response.reason}", "status": "FOUND", "error-message": None, "metadata": metadata})
-            else:
-                if interfaceType == 'CLI':
-                    if showAll:
-                        pass
-                        #print(f'[-]\033[0m - #{u["id"]} {Fore.BLUE}{u["app"]}\033[0m account not found - {Fore.YELLOW}{url}\033[0m [{response.status} {response.reason}]\033[0m')
+            if not eval(u["valid"]):
                 return ({"id": u["id"], "app": u['app'], "url": url, "response-status": f"{response.status} {response.reason}", "status": "NOT FOUND", "error-message": None, "metadata": metadata})
+                #print(f'{Fore.LIGHTGREEN_EX}[+]\033[0m - #{u["id"]} {Fore.BLUE}{u["app"]}\033[0m {Fore.LIGHTGREEN_EX}account found\033[0m - {Fore.YELLOW}{url}\033[0m [{response.status} {response.reason}]\033[0m')
+            if 'metadata' in u:
+                metadata = []
+                for d in u["metadata"]:
+                    with contextlib.suppress(Exception):
+                        value = eval(d['value']).strip('\t\r\n')
+                        #print(f"   |--{d['key']}: {value}")
+                        metadata.append({"type": d["type"], "key": d['key'], "value": value})
+            return ({"id": u["id"], "app": u['app'], "url": url, "response-status": f"{response.status} {response.reason}", "status": "FOUND", "error-message": None, "metadata": metadata})
+            #print(f'[-]\033[0m - #{u["id"]} {Fore.BLUE}{u["app"]}\033[0m account not found - {Fore.YELLOW}{url}\033[0m [{response.status} {response.reason}]\033[0m')
     except Exception as e:
-        if interfaceType == 'CLI':
-            if showAll:
-                pass
-                #print(f'{Fore.RED}[X]\033[0m - #{u["id"]} {Fore.BLUE}{u["app"]}\033[0m error on request ({repr(e)})- {Fore.YELLOW}{url}\033[0m')
         return ({"id": u["id"], "app": u['app'], "url": url, "response-status": None, "status": "ERROR", "error-message": repr(e), "metadata": metadata})
 
 
