@@ -13,10 +13,8 @@ def gravatar(username):
     with contextlib.suppress(Exception):
         res = requests.get(f"https://en.gravatar.com/{username}.json").json()
         r = res["entry"][0]
-        try:
+        with contextlib.suppress(Exception):
             email_hash = r["hash"]
-        except Exception:
-            pass
         try:
             photos = [item["value"] for item in r["photos"]]
         except:
