@@ -22,7 +22,7 @@ def thatsthem(username, method="email"):
                     name = None
                 try:
                     location = driver.find_element(By.XPATH, f'/html/body/div/main/div/div[2]/div[2]/div[2]/div[{i}]/div/div[1]/div[3]').text
-                except:
+                except Exception:
                     location = None
                 try:
                     gender = driver.find_element(By.XPATH, f'/html/body/div/main/div/div[2]/div[2]/div[2]/div[{i}]/div/div[1]/div[2]/span/i').get_attribute("data-title")
