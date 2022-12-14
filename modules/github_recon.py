@@ -34,9 +34,10 @@ def obtain_orgs(user):
 
 def obtain_keys(user):
     if github_token:
-        response = requests.get('https://api.github.com/users/' + user + '/keys', headers=github_headers)
+        response = requests.get(f'https://api.github.com/users/{user}/keys', headers=github_headers)
+
     else:
-        response = requests.get('https://api.github.com/users/' + user + '/keys')
+        response = requests.get(f'https://api.github.com/users/{user}/keys')
     return response.json()
 
 
