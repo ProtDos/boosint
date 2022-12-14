@@ -37,7 +37,7 @@ def thatsthem(username, method="email"):
                     a = s.split('class="web">\n')
                     phones = [item.replace("</a>", "").split("\n")[0] for item in a if "</a>" in item]
 
-                except:
+                except Exception:
                     phones = None
                 try:
                     emails = driver.find_element(By.XPATH, f'/html/body/div/main/div/div[2]/div[2]/div[2]/div[{i}]/div/div[2]/div[4]').get_attribute("innerHTML")
