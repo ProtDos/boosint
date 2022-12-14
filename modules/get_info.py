@@ -115,7 +115,6 @@ def hotmail(username):
     driver.get("https://login.live.com/login.srf")
 
     try:
-
         driver.find_element(By.XPATH, '/html/body/div[1]/form[1]/div/div/div[2]/div[1]/div/div/div/div/div[1]/div[3]/div/div/div/div[2]/div[2]/div/input[1]').send_keys(username)
 
         time.sleep(0.5)
@@ -130,7 +129,7 @@ def hotmail(username):
 
         email = driver.find_element(By.XPATH, '/html/body/div[1]/div/div/div[2]/div/div[1]/div[2]/div/div[1]/div/div/form/div/div[3]/div/div[1]/label/span').text
 
-    except:
+    except Exception:
         pass
     driver.quit()
     return {
