@@ -155,7 +155,7 @@ def thatsthem(username, method="email"):
                         emails = driver.find_element(By.XPATH,
                                                      f'/html/body/div/main/div/div[2]/div[2]/div[2]/div[{i}]/div/div[2]/div[3]').get_attribute(
                             "innerHTML")
-                except:
+                except Exception:
                     emails = None
 
                 js = {
