@@ -17,7 +17,7 @@ def gravatar(username):
             email_hash = r["hash"]
         try:
             photos = [item["value"] for item in r["photos"]]
-        except:
+        except Exception:
             pass
         try:
             name = r["name"]["formatted"]
