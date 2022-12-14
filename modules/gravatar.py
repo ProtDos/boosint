@@ -40,7 +40,7 @@ def gravatar(username):
                 accounts.append(item["domain"])
         except:
             pass
-    except:
+    except Exception:
         pass
 
     return {
