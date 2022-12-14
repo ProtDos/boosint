@@ -135,7 +135,7 @@ def thatsthem(username, method="email"):
                 try:
                     age = driver.find_element(By.XPATH,
                                               f'/html/body/div/main/div/div[2]/div[2]/div[2]/div[{i}]/div/div[1]/div[4]').text
-                except:
+                except Exception:
                     age = None
                 try:
                     s = driver.find_element(By.XPATH,
