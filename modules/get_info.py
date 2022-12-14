@@ -1,3 +1,4 @@
+import contextlib
 import undetected_chromedriver as uc
 from selenium.webdriver.common.by import By
 import time
@@ -22,7 +23,7 @@ def gmail(username):
 
     time.sleep(0.5)
 
-    try:
+    with contextlib.suppress(Exception):
         driver.find_element(By.XPATH,
                                   '/html/body/div[1]/div[1]/div[2]/div/c-wiz/div/div[2]/div/div[2]/div/div[1]/div/div/button').click()
 
@@ -33,31 +34,35 @@ def gmail(username):
 
         time.sleep(5)
 
-        driver.find_element(By.XPATH,
-                                     '/html/body/div[1]/div[1]/div[2]/div/c-wiz/div/div[2]/div/div[2]/div/div[2]/div/div/button').click()
+        model = click_result(driver, '/html/body/div[1]/div[1]/div[2]/div/c-wiz/div/div[2]/div/div[2]/div/div[2]/div/div/button', '/html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div[1]/div/form/span/section/div/div/section/header/div/h2/span')
 
-        time.sleep(5)
-
-        model = driver.find_element(By.XPATH,
-                                    '/html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div[1]/div/form/span/section/div/div/section/header/div/h2/span').text
-
-        driver.find_element(By.XPATH,
-                                    '/html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div[2]/div[2]/div[2]/div/div/button').click()
-
-        time.sleep(5)
-
-        tel = driver.find_element(By.XPATH,
-                                  '/html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div[1]/div/form/span/section/div/div/div[1]/div/span/span').text
+        tel = click_result(driver, '/html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div[2]/div[2]/div[2]/div/div/button', '/html/body/div[1]/div[1]/div[2]/div/div[2]/div/div/div[2]/div/div[1]/div/form/span/section/div/div/div[1]/div/span/span')
 
         phone = tel
 
-    except Exception:
-        pass
     driver.quit()
     return {
         "model": model,
         "phone": phone
     }
+
+
+def click_result(driver, xpath1, xpath2):
+    """click_result: it clicks on the first result and returns the text of the second result
+
+    Args:
+        driver (driver): driver of the browser
+        xpath1 (str): xpath of the first result
+        xpath2 (str): xpath of the second result
+
+    Returns:
+        str: text of the second result
+    """    
+    driver.find_element(By.XPATH, xpath1).click()
+
+    time.sleep(5)
+
+    return driver.find_element(By.XPATH, xpath2).text
 
 
 def yahoo(username):
