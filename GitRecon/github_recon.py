@@ -2,7 +2,7 @@ import requests
 
 github_token = ''  # your token
 github_headers = {
-    'Authorization': 'token ' + github_token
+    'Authorization': f'token {github_token}'
 }
 
 emails_list = {}
