@@ -21,10 +21,8 @@ def gravatar(username):
             name = r["name"]["formatted"]
         with contextlib.suppress(Exception):
             about = r["aboutMe"]
-        try:
+        with contextlib.suppress(Exception):
             location = r["currentLocation"]
-        except Exception:
-            pass
         try:
             accounts = [item["domain"] for item in r["accounts"]]
         except:
