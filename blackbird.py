@@ -94,31 +94,19 @@ def list_sites():
 
 
 def read_results(file):
-    try:
+    with contextlib.suppress(Exception):
         pathRead = os.path.join(path, 'results', file)
         f = open(pathRead, 'r')
         jsonD = json.load(f)
-        #print(f'Loaded results file: {file}')
         #print(f"Username: {jsonD['search-params']['username']}")
-        #print(f"Number of sites: {jsonD['search-params']['sites-number']}")
-        #print(f"Date: {jsonD['search-params']['date']}")
+        #print(f'Loaded results file: {file}')
+        #print(f'{Fore.WHITE}[-]\033[0m - {Fore.BLUE}{u["app"]}\033[0m account not found - {Fore.YELLOW}{u["url"]}\033[0m [{u["response-status"]}]\033[0m')
         #print('-------------------------------------------------')
-        for u in jsonD['sites']:
-            if u['status'] == "FOUND":
-                #print(f'{Fore.LIGHTGREEN_EX}[+]\033[0m - {Fore.BLUE}{u["app"]}\033[0m {Fore.LIGHTGREEN_EX}account found\033[0m - {Fore.YELLOW}{u["url"]}\033[0m [{u["response-status"]}]\033[0m')
-                if u["metadata"]:
-                    for d in u["metadata"]:
-                        pass
-                        #print(f"   |--{d['key']}: {d['value']}")
-            elif u['status'] == "ERROR":
-                pass
-                #print(f'{Fore.RED}[X]\033[0m - {Fore.BLUE}{u["app"]}\033[0m error on request ({u["error-message"]}) - {Fore.YELLOW}{u["url"]}\033[0m')
-            elif u['status'] == "NOT FOUND":
-                pass
-                #print(f'{Fore.WHITE}[-]\033[0m - {Fore.BLUE}{u["app"]}\033[0m account not found - {Fore.YELLOW}{u["url"]}\033[0m [{u["response-status"]}]\033[0m')
-
-    except Exception as e:
-        pass
+        #print(f"Number of sites: {jsonD['search-params']['sites-number']}")
+        #print(f"   |--{d['key']}: {d['value']}")
+        #print(f'{Fore.RED}[X]\033[0m - {Fore.BLUE}{u["app"]}\033[0m error on request ({u["error-message"]}) - {Fore.YELLOW}{u["url"]}\033[0m')
+        #print(f'{Fore.LIGHTGREEN_EX}[+]\033[0m - {Fore.BLUE}{u["app"]}\033[0m {Fore.LIGHTGREEN_EX}account found\033[0m - {Fore.YELLOW}{u["url"]}\033[0m [{u["response-status"]}]\033[0m')
+        #print(f"Date: {jsonD['search-params']['date']}")
         #print(f'{Fore.RED}[X] Error reading file [{repr(e)}]')
 
 
