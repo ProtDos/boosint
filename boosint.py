@@ -24,7 +24,7 @@ def find_website(username):
             out = requests.get(f"http://{username}.{ending}").status_code
             if out == 200:
                 working.append(f"http://{username}.{ending}")
-        except:
+        except Exception:
             pass
     done = True
 
