@@ -19,7 +19,7 @@ def pin(username):
         about = driver.find_element(By.XPATH, '/html/body/div[1]/div[1]/div/div[1]/div[2]/div/div[1]/div[1]/div/div[4]/div/div/div/div/div/span').get_attribute("innerHTML")
     try:
         name = driver.find_element(By.XPATH, '/html/body/div[1]/div[1]/div/div[1]/div[2]/div/div[1]/div[1]/div/div[2]/div/h1/div').text
-    except:
+    except Exception:
         pass
 
     return {
