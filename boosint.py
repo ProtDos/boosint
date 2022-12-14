@@ -116,7 +116,7 @@ if __name__ == "__main__":
         ############################### ThatsThem ###############################
         try:
             gitrec["name"]
-        except:
+        except Exception:
             gitrec = {
                 "name": None,
                 "leaked_emails": None,
