@@ -141,10 +141,8 @@ if __name__ == '__main__':
         command.check_returncode()
 
     if arguments.username:
-        try:
+        with contextlib.suppress(Exception):
             asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-        except Exception:
-            pass
         interfaceType = 'CLI'
         asyncio.run(findUsername(arguments.username, interfaceType))
     elif arguments.list:
