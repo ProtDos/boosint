@@ -68,10 +68,8 @@ if __name__ == "__main__":
         print("[+] GitRecon has finished.")
         ############################### Blackbird ###############################
         print("[i] Starting Blackbird.")
-        try:
+        with contextlib.suppress(Exception):
             asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-        except Exception:
-            pass
         out = asyncio.run(findUsername(username, "CLI"))
 
 
