@@ -11,12 +11,8 @@ def github_user_recon(username):
 
 
 def create_github_json_output(user_data, keys):
-    json_output = {}
-    json_output['username'] = user_data['login']
-    json_output['name'] = user_data['name']
-    json_output['id'] = user_data['id']
-    json_output['avatar_url'] = user_data['avatar_url']
-    json_output['orgs'] = []
+    json_output = {'username': user_data['login'], 'name': user_data['name'], 'id': user_data['id'], 'avatar_url': user_data['avatar_url'], 'orgs': []}
+
     if user_data['email']:
         json_output['email'] = user_data['email']
     if user_data['location']:
