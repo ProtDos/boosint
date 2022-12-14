@@ -1,5 +1,6 @@
 from blackbird import findUsername
 import asyncio
+import contextlib
 import os
 import shutil
 import requests
@@ -20,12 +21,10 @@ def find_website(username):
     with open("data/domain-endings.txt", "r") as file:
         content = file.read().split("\n")
     for ending in content:
-        try:
+        with contextlib.suppress(Exception):
             out = requests.get(f"http://{username}.{ending}").status_code
             if out == 200:
                 working.append(f"http://{username}.{ending}")
-        except Exception:
-            pass
     done = True
 
 
