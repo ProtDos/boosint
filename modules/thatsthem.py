@@ -45,7 +45,7 @@ def thatsthem(username, method="email"):
                     emails = None
                 try:
                     ips = driver.find_element(By.XPATH, f'/html/body/div/main/div/div[2]/div[2]/div[2]/div[{i}]/div/div[3]/div/div[1]/div').get_attribute("innerHTML")
-                except:
+                except Exception:
                     ips = None
 
                 js = {
