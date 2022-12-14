@@ -70,7 +70,7 @@ if __name__ == "__main__":
         print("[i] Starting Blackbird.")
         try:
             asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-        except:
+        except Exception:
             pass
         out = asyncio.run(findUsername(username, "CLI"))
 
