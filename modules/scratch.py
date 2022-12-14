@@ -20,10 +20,8 @@ def scratch(username):
             group = driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div[2]/div[1]/div/p/span[1]').text
         with contextlib.suppress(Exception):
             location = driver.find_element(By.CLASS_NAME, 'location').text
-        try:
+        with contextlib.suppress(Exception):
             about = driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div[2]/div[2]/div[2]/div[1]/div[1]/div[2]/div/p').text
-        except Exception:
-            pass
         try:
             about2 = driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div[2]/div[2]/div[2]/div[1]/div[1]/div[3]/div/p').text
         except:
