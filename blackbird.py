@@ -126,18 +126,15 @@ if __name__ == '__main__':
                         help='Run webserver.')
     parser.add_argument('--proxy', action='store', dest='proxy',
                         required=False,
-                        help='Proxy to send requests through.E.g: --proxy http://127.0.0.1:8080 ')                  
+                        help='Proxy to send requests through.E.g: --proxy http://127.0.0.1:8080 ')
     parser.add_argument('--show-all', action='store_true', dest='showAll',
                         required=False,
-                        help='Show all results.')                  
+                        help='Show all results.')
     arguments = parser.parse_args()
 
     if arguments.proxy:
         proxy = arguments.proxy
-    showAll = False
-    if arguments.showAll:
-        showAll = arguments.showAll
-
+    showAll = arguments.showAll or False
     if arguments.web:
         print('[!] Started WebServer on http://127.0.0.1:9797/')
         command = subprocess.run((sys.executable, "webserver.py"))
