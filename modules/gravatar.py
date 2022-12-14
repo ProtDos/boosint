@@ -23,7 +23,7 @@ def gravatar(username):
             about = r["aboutMe"]
         try:
             location = r["currentLocation"]
-        except:
+        except Exception:
             pass
         try:
             accounts = [item["domain"] for item in r["accounts"]]
