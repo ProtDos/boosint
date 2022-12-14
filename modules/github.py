@@ -36,7 +36,7 @@ def github(username):
         data = driver.find_element(By.XPATH,
                                    '/html/body/div[4]/main/div[2]/div/div[1]/div/div[2]/div[2]/div[2]/ul/li[1]/span').get_attribute("innerHTML")
         location = data
-    except:
+    except Exception:
         pass
 
     driver.quit()
