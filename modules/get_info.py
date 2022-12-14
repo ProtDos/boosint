@@ -114,24 +114,34 @@ def hotmail(username):
 
     driver.get("https://login.live.com/login.srf")
 
-    try:
-        driver.find_element(By.XPATH, '/html/body/div[1]/form[1]/div/div/div[2]/div[1]/div/div/div/div/div[1]/div[3]/div/div/div/div[2]/div[2]/div/input[1]').send_keys(username)
-
-        time.sleep(0.5)
-
-        driver.find_element(By.XPATH, '/html/body/div[1]/form[1]/div/div/div[2]/div[1]/div/div/div/div/div[1]/div[3]/div/div/div/div[4]/div/div/div/div/input').click()
-
-        time.sleep(0.5)
-
-        driver.find_element(By.XPATH, '/html/body/div[1]/form[1]/div/div/div[2]/div[1]/div/div/div/div/div/div[3]/div/div[2]/div/div[4]/div[1]/div/div/div/div[1]/a').click()
-
-        time.sleep(5)
-
-        email = driver.find_element(By.XPATH, '/html/body/div[1]/div/div/div[2]/div/div[1]/div[2]/div/div[1]/div/div/form/div/div[3]/div/div[1]/label/span').text
-
-    except Exception:
-        pass
+    with contextlib.suppress(Exception):
+        email = hotmail_email(driver, username)
     driver.quit()
     return {
         "email": email
     }
+
+
+def hotmail_email(driver, username):
+    """hotmail_email: it returns the email of the user
+
+    Args:
+        driver (driver): driver of the browser
+        username (str): username of the user
+
+    Returns:
+        str: email of the user
+    """    
+    driver.find_element(By.XPATH, '/html/body/div[1]/form[1]/div/div/div[2]/div[1]/div/div/div/div/div[1]/div[3]/div/div/div/div[2]/div[2]/div/input[1]').send_keys(username)
+
+    time.sleep(0.5)
+
+    driver.find_element(By.XPATH, '/html/body/div[1]/form[1]/div/div/div[2]/div[1]/div/div/div/div/div[1]/div[3]/div/div/div/div[4]/div/div/div/div/input').click()
+
+    time.sleep(0.5)
+
+    driver.find_element(By.XPATH, '/html/body/div[1]/form[1]/div/div/div[2]/div[1]/div/div/div/div/div/div[3]/div/div[2]/div/div[4]/div[1]/div/div/div/div[1]/a').click()
+
+    time.sleep(5)
+
+    return driver.find_element(By.XPATH, '/html/body/div[1]/div/div/div[2]/div/div[1]/div[2]/div/div[1]/div/div/form/div/div[3]/div/div[1]/label/span').text
