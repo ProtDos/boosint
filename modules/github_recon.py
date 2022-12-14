@@ -1,3 +1,4 @@
+import contextlib
 import requests
 
 github_token = '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'
@@ -60,12 +61,10 @@ def obtain_events(user):
 def extract_events_leaks(user):
     events = obtain_events(user)
     for data in events:
-        try:
+        with contextlib.suppress(Exception):
             for info in data['payload']['commits']:
                 info = {info['author']['email']: info['author']['name']}
                 emails_list.update(info)
-        except Exception:
-            pass
 
 
 def validate_leaked_emails(emails, user_info):
