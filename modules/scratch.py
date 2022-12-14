@@ -24,7 +24,7 @@ def scratch(username):
             about = driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div[2]/div[2]/div[2]/div[1]/div[1]/div[2]/div/p').text
         try:
             about2 = driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div[2]/div[2]/div[2]/div[1]/div[1]/div[3]/div/p').text
-        except:
+        except Exception:
             pass
 
         driver.get(f"https://scratch.mit.edu/users/{username}/following")
