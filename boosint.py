@@ -63,7 +63,7 @@ if __name__ == "__main__":
         try:
             from GitRecon.gitrecon import gitrecon
             gitrec = gitrecon(username)
-        except:
+        except Exception:
             print("[-] Your github auth token is invalid. Please make a new one in the config file.")
         print("[+] GitRecon has finished.")
         ############################### Blackbird ###############################
