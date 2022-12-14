@@ -17,11 +17,8 @@ def pin(username):
     time.sleep(5)
     with contextlib.suppress(Exception):
         about = driver.find_element(By.XPATH, '/html/body/div[1]/div[1]/div/div[1]/div[2]/div/div[1]/div[1]/div/div[4]/div/div/div/div/div/span').get_attribute("innerHTML")
-    try:
+    with contextlib.suppress(Exception):
         name = driver.find_element(By.XPATH, '/html/body/div[1]/div[1]/div/div[1]/div[2]/div/div[1]/div[1]/div/div[2]/div/h1/div').text
-    except Exception:
-        pass
-
     return {
         "name": name,
         "about": about
