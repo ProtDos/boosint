@@ -21,7 +21,7 @@ def gravatar(username):
             name = r["name"]["formatted"]
         try:
             about = r["aboutMe"]
-        except:
+        except Exception:
             pass
         try:
             location = r["currentLocation"]
