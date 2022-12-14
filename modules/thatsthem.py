@@ -18,7 +18,7 @@ def thatsthem(username, method="email"):
             for i in range(20):
                 try:
                     name = driver.find_element(By.XPATH, f'/html/body/div/main/div/div[2]/div[2]/div[2]/div[{i}]/div/div[1]/div[2]').text
-                except:
+                except Exception:
                     name = None
                 try:
                     location = driver.find_element(By.XPATH, f'/html/body/div/main/div/div[2]/div[2]/div[2]/div[{i}]/div/div[1]/div[3]').text
