@@ -17,7 +17,7 @@ def scratch(username):
     try:
         try:
             group = driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div[2]/div[1]/div/p/span[1]').text
-        except:
+        except Exception:
             pass
         try:
             location = driver.find_element(By.CLASS_NAME, 'location').text
