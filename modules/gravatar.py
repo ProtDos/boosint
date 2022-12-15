@@ -1,3 +1,4 @@
+import contextlib
 import requests
 
 
@@ -9,40 +10,21 @@ def gravatar(username):
     about = None
     location = None
     accounts = None
-    try:
+    with contextlib.suppress(Exception):
         res = requests.get(f"https://en.gravatar.com/{username}.json").json()
         r = res["entry"][0]
-        try:
+        with contextlib.suppress(Exception):
             email_hash = r["hash"]
-        except:
-            pass
-        try:
-            photos = []
-            for item in r["photos"]:
-                photos.append(item["value"])
-        except:
-            pass
-        try:
+        with contextlib.suppress(Exception):
+            photos = [item["value"] for item in r["photos"]]
+        with contextlib.suppress(Exception):
             name = r["name"]["formatted"]
-        except:
-            pass
-        try:
+        with contextlib.suppress(Exception):
             about = r["aboutMe"]
-        except:
-            pass
-        try:
+        with contextlib.suppress(Exception):
             location = r["currentLocation"]
-        except:
-            pass
-        try:
-            accounts = []
-            for item in r["accounts"]:
-                accounts.append(item["domain"])
-        except:
-            pass
-    except:
-        pass
-
+        with contextlib.suppress(Exception):
+            accounts = [item["domain"] for item in r["accounts"]]
     return {
         "name": name,
         "about": about,

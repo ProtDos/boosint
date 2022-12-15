@@ -1,3 +1,4 @@
+import contextlib
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
@@ -18,32 +19,23 @@ def github(username):
     name = None
     location = None
 
-    try:
+    with contextlib.suppress(Exception):
         data = driver.find_element(By.XPATH,
                                    '/html/body/div[4]/main/div[2]/div/div[1]/div/div[2]/div[2]/div[2]/div[1]/div').get_attribute("innerHTML")
         about = data
-    except:
-        pass
-    try:
+    with contextlib.suppress(Exception):
         data = driver.find_element(By.XPATH,
                                    '/html/body/div[4]/main/div[2]/div/div[1]/div/div[2]/div[2]/div[2]/ul/li[2]/a').get_attribute(
             'innerHTML')
         link = data
-    except:
-        pass
-    try:
+    with contextlib.suppress(Exception):
         data = driver.find_element(By.XPATH,
                                    '/html/body/div[4]/main/div[2]/div/div[1]/div/div[2]/div[1]/div[2]/h1/span[2]').get_attribute("innerHTML")
         name = data
-    except:
-        pass
-    try:
+    with contextlib.suppress(Exception):
         data = driver.find_element(By.XPATH,
                                    '/html/body/div[4]/main/div[2]/div/div[1]/div/div[2]/div[2]/div[2]/ul/li[1]/span').get_attribute("innerHTML")
         location = data
-    except:
-        pass
-
     driver.quit()
 
     return {

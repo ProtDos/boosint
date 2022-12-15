@@ -1,3 +1,4 @@
+import contextlib
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 import time
@@ -18,23 +19,14 @@ def twitter(username):
     time.sleep(5)
 
 
-    try:
+    with contextlib.suppress(Exception):
         about = driver.find_element(By.XPATH, '/html/body/div[1]/div/div/div[2]/main/div/div/div/div[1]/div/div[3]/div/div/div/div/div[3]/div/div/span[1]').get_attribute("innerHTML")
-    except:
-        pass
-    try:
+    with contextlib.suppress(Exception):
         link = driver.find_element(By.XPATH, '/html/body/div[1]/div/div/div[2]/main/div/div/div/div[1]/div/div[3]/div/div/div/div/div[4]/div/a').get_attribute('href')
-    except:
-        pass
-    try:
+    with contextlib.suppress(Exception):
         name = driver.find_element(By.XPATH, '/html/body/div[1]/div/div/div[2]/main/div/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div[1]/div/div[1]/div/div/span[1]/span').text
-    except:
-        pass
-    try:
+    with contextlib.suppress(Exception):
         birthday = driver.find_element(By.XPATH, '/html/body/div[1]/div/div/div[2]/main/div/div/div/div[1]/div/div[3]/div/div/div/div/div[4]/div/span[1]').text
-    except:
-        pass
-
     driver.quit()
 
     return {

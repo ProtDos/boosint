@@ -1,15 +1,12 @@
 # Boosint
 
 <p align="center">
-  <p align="center">
-    <img src="https://user-images.githubusercontent.com/69071809/205498298-cbdc7e47-73e0-491a-812a-05501380fad7.jpg" height="200"/>
-  </p>
+  <img src="https://user-images.githubusercontent.com/69071809/205498298-cbdc7e47-73e0-491a-812a-05501380fad7.jpg" height="200"/>
 </p>
 
 ## About
 
 **BoOSINT** collects data **by username only** by checking nearly every data publicly available about a username and it's aliases.
-
 
 ## Main features
 
@@ -21,7 +18,6 @@
 * Finding of websites
 * Finding device information, telephone number, email addresses
 * Finding locations, gender, birthdays and real names
-
 
 ## Installation
 
@@ -50,8 +46,10 @@ boosint.py username --output report.json
 
 Use `boosint -h` to get full options description.
 
-##  Sources / Credits
+## Sources / Credits
+
 Here is a list of sources I used:
+
 * [Maigret](https://github.com/soxoj/maigret)
 * [BlackBird](https://github.com/p1ngul1n0/blackbird)
 * [GitRecon](https://github.com/GONZOsint/gitrecon)

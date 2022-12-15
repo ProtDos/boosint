@@ -1,3 +1,4 @@
+import contextlib
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
@@ -15,23 +16,14 @@ def scratch(username):
     driver.get(f"https://scratch.mit.edu/users/{username}/")
 
     try:
-        try:
+        with contextlib.suppress(Exception):
             group = driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div[2]/div[1]/div/p/span[1]').text
-        except:
-            pass
-        try:
+        with contextlib.suppress(Exception):
             location = driver.find_element(By.CLASS_NAME, 'location').text
-        except:
-            pass
-        try:
+        with contextlib.suppress(Exception):
             about = driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div[2]/div[2]/div[2]/div[1]/div[1]/div[2]/div/p').text
-        except:
-            pass
-        try:
+        with contextlib.suppress(Exception):
             about2 = driver.find_element(By.XPATH, '/html/body/div[1]/div[4]/div[2]/div[2]/div[2]/div[1]/div[1]/div[3]/div/p').text
-        except:
-            pass
-
         driver.get(f"https://scratch.mit.edu/users/{username}/following")
 
         i = 1
@@ -42,11 +34,11 @@ def scratch(username):
             try:
                 friend = driver.find_element(By.XPATH, f'/html/body/div[1]/div[4]/div[2]/div[2]/div/ul/li[{i}]')
                 friends.append(friend)
-            except:
+            except Exception:
                 break
             i += 1
 
-    except:
+    except Exception:
         print("User not found")
     driver.quit()
 

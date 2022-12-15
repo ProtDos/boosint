@@ -1,3 +1,4 @@
+import contextlib
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
@@ -14,15 +15,10 @@ def tiktok(username):
     driver.get(f"https://tiktok.com/@{username}")
 
 
-    try:
+    with contextlib.suppress(Exception):
         about = driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div[2]/div/div[1]/h2[2]').text
-    except:
-        pass
-    try:
+    with contextlib.suppress(Exception):
         link = driver.find_element(By.XPATH, '/html/body/div[2]/div[2]/div[2]/div/div[1]/div[2]/a').text
-    except:
-        pass
-
     driver.quit()
 
     return {
